@@ -1,15 +1,22 @@
 <script >
-import HelloWorld from './components/HelloWorld.vue'
+
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 export default{
 data(){
+  
   return{
-    listaToDo:[]
+    listaToDo:[],
+    did:false,
+  }
+},
+methods:{
+  delTask(indice){
+    this.listaToDo.splice(indice, 1);
   }
 },
 mounted() {
-
 
 axios.get('http://localhost:8888/php-todo-list-json/back/')
      .then(res => {
@@ -25,12 +32,23 @@ axios.get('http://localhost:8888/php-todo-list-json/back/')
   <h1 class="text-center">PHP COMUNICA CON VITE</h1>
   <div class="container">
     <ol class="mt-4 ">
-      <li v-for="el in listaToDo">
-      <span :class="el.fatto ? 'text-decoration-line-through': ''">{{ el.name }}</span>
+      <li v-for="el,i in listaToDo" :key="i" class="mt-2">
+      <span :class="el.fatto ? 'text-decoration-line-through': ''" @click="el.fatto= !el.fatto">{{ el.name }}</span>
+      <a  class="pulsante_del text-decoration-none ms-4" @click="delTask(i)"><font-awesome-icon :icon="['fas', 'x']" /></a>
       </li>
     </ol>
   </div>
 </template>
 
 <style scoped>
+span,a{
+  cursor: pointer;
+}
+
+
+.pulsante_del{
+  color: white;
+  padding: 5px 10px;
+  background-color: red;
+}
 </style>
