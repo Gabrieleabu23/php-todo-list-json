@@ -4,11 +4,16 @@ header('Content-Type: application/json');
 
 $list_todo = file_get_contents("todoList.json");
 $data = json_decode($list_todo, true);
-
 $text = $_GET['text'];
+
+$done = false;
+
+if (isset($_GET['fatto']) &&(int)$_GET['fatto'] == 1) {
+    $done = true;
+}
 $newPost = [
     'name' => $text,
-    'fatto' => false,
+    'fatto' => $done,
 ];
 array_push($data,$newPost);
 

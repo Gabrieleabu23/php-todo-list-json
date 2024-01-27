@@ -8,7 +8,8 @@ data(){
 
   return{
     listaToDo:[],
-    text:''
+    text:'',
+    checked:'',
   }
 },
 methods:{
@@ -18,7 +19,7 @@ methods:{
 
     const params = {
                 params: {
-
+                  fatto: this.checked ? 1 : 0,
                     text: this.text
                 }
             };
@@ -35,14 +36,13 @@ methods:{
 
     const params = {
                 params: {
-
                     index: indice
                 }
             };
     axios.get('http://localhost:8888/php-todo-list-json/back/delTask.php',params)
      .then(res => {
       // DEBUG PER CONTROLLARE SE LA LISTA VIENE PASSATA CORRETTAMENTE
-      console.log("lista aggiornata:",res.data);
+      console.log("lista aggiornata con -:",res.data);
       this.listaToDo= res.data;
      }).catch(err => console.error(err));
   }
@@ -75,11 +75,21 @@ axios.get('http://localhost:8888/php-todo-list-json/back/index.php')
       </li>
     </ol>
     <input type="text" v-model="text">
+    <input type="checkbox" name="fatto" id="fatto" v-model="checked" >Fatto?
     <button @click="addTask()">Aggiungi</button>
   </div>
 </template>
 
 <style scoped>
+button{
+  padding: 5px 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  &:hover{
+    background-color:blueviolet;
+  }
+}
 span,
 a {
   cursor: pointer;
