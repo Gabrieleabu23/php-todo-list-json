@@ -7,10 +7,28 @@ export default{
 data(){
 
   return{
-    listaToDo:[]
+    listaToDo:[],
+    text:''
   }
 },
 methods:{
+  addTask(){
+    // VECCHIO METODO MA NON SULL ARRAY IN .JSON
+    // this.listaToDo.splice(indice, 1);
+
+    const params = {
+                params: {
+
+                    text: this.text
+                }
+            };
+    axios.get('http://localhost:8888/php-todo-list-json/back/addTask.php',params)
+     .then(res => {
+      // DEBUG PER CONTROLLARE SE LA LISTA VIENE PASSATA CORRETTAMENTE
+      console.log("lista aggiornata con +:",res.data);
+      this.listaToDo= res.data;
+     }).catch(err => console.error(err));
+  },
   delTask(indice){
     // VECCHIO METODO MA NON SULL ARRAY IN .JSON
     // this.listaToDo.splice(indice, 1);
@@ -56,6 +74,8 @@ axios.get('http://localhost:8888/php-todo-list-json/back/index.php')
         /></a>
       </li>
     </ol>
+    <input type="text" v-model="text">
+    <button @click="addTask()">Aggiungi</button>
   </div>
 </template>
 
