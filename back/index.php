@@ -1,26 +1,12 @@
 <?php
 header("Access-Control-Allow-Origin: http://localhost:5173");
-$list_todo = [
-    [
-        'name' => 'Fare la spesa',
-        'fatto' => true,
-    ],
-    [
-        'name' => "Fare l'esercizio",
-        'fatto' => false,
-    ],
-    [
-        'name' => 'Studiare',
-        'fatto' => true,
-    ],
-    [
-        'name' => 'Dormire',
-        'fatto' => false,
-    ],
-];
 header('Content-Type: application/json');
 
-echo json_encode($list_todo);
+$list_todo = file_get_contents("todoList.json");
+$data = json_decode($list_todo, true);
+
+echo json_encode($data);
+
 
 
 

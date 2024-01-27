@@ -1,0 +1,19 @@
+[
+    
+    {
+        "name" : "Fare la spesa",
+        "fatto" : true
+    },
+    {
+        "name" : "Fare l'esercizio",
+        "fatto" : false
+    },
+    {
+        "name" : "Studiare",
+        "fatto" : true
+    },
+    {
+        "name" : "Dormire",
+        "fatto" : false
+    }
+]
